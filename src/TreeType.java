@@ -3,6 +3,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import nodo.tipoNodo.NodoDoble;
 import numero.NumeroComplejo;
 import arbol.arbolBinario.ArbolBinario;
 
@@ -18,6 +19,7 @@ public class TreeType extends JPanel {
 	private ArbolBinario<Double> arbolDouble;
 	private ArbolBinario<NumeroComplejo> arbolNumeroComplejo;
 	private int estado;
+	private String buscar;
 
 	public TreeType(TreePaint dibujo) {
 		this.dibujo = dibujo;
@@ -78,6 +80,7 @@ public class TreeType extends JPanel {
 
 	private class Accion implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			buscar = textField.getText();
 			if (e.getSource() == buttonString) {
 				estado = 0;
 				left.setVisible(false);
@@ -90,29 +93,32 @@ public class TreeType extends JPanel {
 			} else if (e.getSource() == buttonNumeroComplejo) {
 				estado = 3;
 				left.setVisible(true);
-			} else if (e.getSource() == buttonAdd) {
-				if (estado == 0) {
-					if (arbolString == null)
-						arbolString = new ArbolBinario<>(textField.getText());
-					else
-						arbolString.insertar(textField.getText());
-				} else if (estado == 1) {
-					if (arbolInteger == null)
-						arbolInteger = new ArbolBinario<>(Integer.valueOf(textField.getText()));
-					else
-						arbolInteger.insertar(Integer.valueOf(textField.getText()));
-				} else if (estado == 2) {
-					if (arbolDouble == null)
-						arbolDouble = new ArbolBinario<>(Double.valueOf(textField.getText()));
-					else
-						arbolDouble.insertar(Double.valueOf(textField.getText()));
-				} 
-				left.setVisible(true);
-			} else if (e.getSource() == buttonDelete) {
-				arbolString.eliminar(textField.getText());
-				left.setVisible(true);
+			} else if(!textField.getText().equals("")){
+				if (e.getSource() == buttonAdd) {
+					if (estado == 0) {
+						if (arbolString == null)
+							arbolString = new ArbolBinario<>(buscar);
+						else
+							arbolString.insertar(buscar);
+						dibujo.position(String.valueOf(arbolString.buscar(buscar).getInfo()), arbolString.buscar(buscar).getNivel(), arbolString.buscar(buscar).getNumero());
+						dibujo.setUpdate(true);
+					} else if (estado == 1) {
+						if (arbolInteger == null)
+							arbolInteger = new ArbolBinario<>(Integer.valueOf(textField.getText()));
+						else
+							arbolInteger.insertar(Integer.valueOf(textField.getText()));
+					} else if (estado == 2) {
+						if (arbolDouble == null)
+							arbolDouble = new ArbolBinario<>(Double.valueOf(textField.getText()));
+						else
+							arbolDouble.insertar(Double.valueOf(textField.getText()));
+					} 
+						left.setVisible(true);
+					} else if (e.getSource() == buttonDelete) {
+						arbolString.eliminar(textField.getText());
+						left.setVisible(true);
+					}
 			}
 		}
-
 	}
 }

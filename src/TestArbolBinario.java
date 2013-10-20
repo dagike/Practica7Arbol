@@ -2,7 +2,7 @@ import numero.NumeroComplejo;
 import arbol.arbolBinario.ArbolBinario;
 public class TestArbolBinario{
 	public static void main(String args[]){
-		/*ArbolBinario<String> arbol;
+		ArbolBinario<String> arbol;
 		//int menu;
 		arbol=new ArbolBinario<>("F");
 		arbol.insertar("b");
@@ -14,8 +14,8 @@ public class TestArbolBinario{
 		arbol.insertar("i");
 		arbol.insertar("H");
 		arbol.insertar("J");
-		arbol.eliminar("e");
-		System.out.println("\n"+arbol.inOrder(arbol.getRaiz()));*/
+		arbol.eliminar("D");
+		System.out.println("\n"+arbol.inOrder(arbol.getRaiz()));
 		
 		/*ArbolBinario<Integer> arbol;
 		//int menu;
@@ -47,7 +47,7 @@ public class TestArbolBinario{
 		arbol.eliminar(7.0);
 		System.out.println("\n"+arbol.inOrder(arbol.getRaiz()));*/
 		
-		ArbolBinario<NumeroComplejo> arbol;
+		/*ArbolBinario<NumeroComplejo> arbol;
 		//int menu;
 		NumeroComplejo ins = new NumeroComplejo();
 		ins.setParteImaginaria(6.0);
@@ -93,6 +93,6 @@ public class TestArbolBinario{
 		ins.setParteImaginaria(10.0);
 		ins.setParteReal(2.0);
 		arbol.eliminar(ins);
-		System.out.println("\n"+arbol.inOrder(arbol.getRaiz()));
+		System.out.println("\n"+arbol.inOrder(arbol.getRaiz()));*/
 	}
 }

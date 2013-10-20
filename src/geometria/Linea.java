@@ -4,9 +4,9 @@ import java.awt.Graphics;
 
 public class Linea implements Geometria {
 
-	@Override
 	public void dibujar(Graphics figura, int x, int y) {
-		figura.drawLine(x,y,50,20);
+		figura.drawLine((x + 25), (y + 50), (x + 150), (y + 75));// RIGHT
+		figura.drawLine((x + 25), (y + 50), (x - 100), (y + 75));// LEFT
 	}
 
 }
