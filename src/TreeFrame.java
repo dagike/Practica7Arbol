@@ -13,8 +13,8 @@ public class TreeFrame extends JFrame {
 	}
 
 	public void mostrarFrame() {
-		setDefaultLookAndFeelDecorated(true);
-		dibujo = new TreePaint(Color.BLACK,0,1);
+		setDefaultLookAndFeelDecorated(isEnabled());
+		dibujo = new TreePaint(Color.GREEN,0,1);
 		opc = new TreeType(dibujo);
 
 		JButton posOrder = new JButton("Posorder"), inOrder = new JButton(

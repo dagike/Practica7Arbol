@@ -21,7 +21,6 @@ public class TreePaint extends JPanel {
 			circulo.setMessage(message);
 			circulo.dibujar(g, x, y);
 			linea.dibujar(g, x, y);
-			System.out.println("HOLA");
 			update = false;
 		}
 		/*position(1, 1);
@@ -62,7 +61,7 @@ public class TreePaint extends JPanel {
 		}
 		this.message = message;
 		this.y = nivel * 75;
-		this.x = (800/(numeroTotal+1))*numero - 25;
+		this.x = (700/(numeroTotal+1))*numero - 25;
 	}
 	
 	public void setUpdate(boolean update){

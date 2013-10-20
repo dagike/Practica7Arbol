@@ -97,25 +97,33 @@ public class TreeType extends JPanel {
 				if (e.getSource() == buttonAdd) {
 					if (estado == 0) {
 						if (arbolString == null)
-							arbolString = new ArbolBinario<>(buscar);
+							arbolString = new ArbolBinario<>(String.valueOf(textField.getText()));
 						else
-							arbolString.insertar(buscar);
-						dibujo.position(String.valueOf(arbolString.buscar(buscar).getInfo()), arbolString.buscar(buscar).getNivel(), arbolString.buscar(buscar).getNumero());
+							arbolString.insertar(String.valueOf(textField.getText()));
+						dibujo.position(String.valueOf(arbolString.buscar(String.valueOf(textField.getText())).getInfo()), arbolString.buscar(String.valueOf(textField.getText())).getNivel(), arbolString.buscar(String.valueOf(textField.getText())).getNumero());
 						dibujo.setUpdate(true);
+						dibujo.repaint();
 					} else if (estado == 1) {
 						if (arbolInteger == null)
 							arbolInteger = new ArbolBinario<>(Integer.valueOf(textField.getText()));
 						else
 							arbolInteger.insertar(Integer.valueOf(textField.getText()));
+						dibujo.position(String.valueOf(arbolInteger.buscar(Integer.valueOf(textField.getText())).getInfo()), arbolInteger.buscar(Integer.valueOf(textField.getText())).getNivel(), arbolInteger.buscar(Integer.valueOf(textField.getText())).getNumero());
+						dibujo.setUpdate(true);
+						dibujo.repaint();
 					} else if (estado == 2) {
 						if (arbolDouble == null)
 							arbolDouble = new ArbolBinario<>(Double.valueOf(textField.getText()));
 						else
 							arbolDouble.insertar(Double.valueOf(textField.getText()));
+						dibujo.position(String.valueOf(arbolDouble.buscar(Double.valueOf(textField.getText())).getInfo()), arbolDouble.buscar(Double.valueOf(textField.getText())).getNivel(), arbolDouble.buscar(Double.valueOf(textField.getText())).getNumero());
+						dibujo.setUpdate(true);
+						dibujo.repaint();
 					} 
 						left.setVisible(true);
 					} else if (e.getSource() == buttonDelete) {
 						arbolString.eliminar(textField.getText());
+						dibujo.position(String.valueOf(arbolString.buscar(String.valueOf(textField.getText())).getInfo()), arbolString.buscar(String.valueOf(textField.getText())).getNivel(), arbolString.buscar(String.valueOf(textField.getText())).getNumero());
 						left.setVisible(true);
 					}
 			}
