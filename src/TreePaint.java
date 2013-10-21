@@ -1,5 +1,10 @@
 import javax.swing.*;
 
+import nodo.Nodo;
+import nodo.tipoNodo.NodoDoble;
+import numero.NumeroComplejo;
+import arbol.arbolBinario.ArbolBinario;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -10,18 +15,52 @@ public class TreePaint extends JPanel {
 	private int x, y;
 	private String message = "";
 	private boolean update;
+	private Nodo<String> raizString;
+	private Nodo<Integer> raizInteger;
+	private Nodo<Double> raizDouble;
+	private Nodo<NumeroComplejo> raizNumeroComplejo;
+	private int state;
 	
 	public void paintComponent(Graphics g/*String message, int nivel, int numero*/) {
+		System.out.println(String.valueOf(update));
 		if(update == true){
-			g.setColor(c);
+			super.paintComponent(g);
 			Circulo circulo = new Circulo();
 			Linea linea = new Linea();
-			
-			//position(nivel, numero);
-			circulo.setMessage(message);
-			circulo.dibujar(g, x, y);
-			linea.dibujar(g, x, y);
-			update = false;
+			g.setColor(c);
+			switch(state){
+				case 1: 
+					if (((NodoDoble<String>) raizString).getPreviewNodo() != null){
+						raizString = ((NodoDoble<String>) raizString).getPreviewNodo();
+						paintComponent(g);
+					}
+					position(String.valueOf(raizString.getInfo()), raizString.getNivel(), raizString.getNumero() );
+					circulo.setMessage(message);
+					circulo.dibujar(g, x, y);
+					linea.dibujar(g, x, y);
+					if (raizString.getNextNodo() != null){
+						paintComponent(g);
+						raizString = raizString.getNextNodo();
+					}
+					break;
+				case 2:{
+					if (((NodoDoble<Integer>) raizInteger).getPreviewNodo() != null){
+						raizInteger = ((NodoDoble<Integer>) raizInteger).getPreviewNodo();
+						paintComponent(g);
+					}
+					position(String.valueOf(raizInteger.getInfo()), raizInteger.getNivel(), raizInteger.getNumero() );
+					circulo.setMessage(message);
+					circulo.dibujar(g, x, y);
+					linea.dibujar(g, x, y);
+					if (raizString.getNextNodo() != null){
+						paintComponent(g);
+						raizString = raizString.getNextNodo();
+					}
+					break;
+				}
+				default:break;
+			}
+			//super.paintComponent(g);
 		}
 		/*position(1, 1);
 		circulo.setMessage("B");
@@ -50,8 +89,10 @@ public class TreePaint extends JPanel {
 
 	public TreePaint(Color c,int nivel, int numero) {
 		super();
+		setBackground(Color.WHITE);
 		this.c = c;
 		update = false;
+		state = 0;
 	}
 
 	public void position(String message, int nivel, int numero) {
@@ -61,7 +102,23 @@ public class TreePaint extends JPanel {
 		}
 		this.message = message;
 		this.y = nivel * 75;
-		this.x = (700/(numeroTotal+1))*numero - 25;
+		this.x = (700/(numeroTotal+1))*numero-1 - 25;
+	}
+	
+	public void setRaizString(Nodo<String> raiz){
+		this.raizString = raiz;
+	}
+	
+	public void setRaizInteger(Nodo<Integer> raiz){
+		this.raizInteger = raiz;
+	}
+	
+	public void setRaizDouble(Nodo<Double> raiz){
+		this.raizDouble = raiz;
+	}
+	
+	public void setRaizNumeroComplejo(Nodo<NumeroComplejo> raiz){
+		this.raizNumeroComplejo = raiz;
 	}
 	
 	public void setUpdate(boolean update){
@@ -70,6 +127,10 @@ public class TreePaint extends JPanel {
 
 	public void setColor(Color c) {
 		this.c = c;
+	}
+	
+	public void setState(int state){
+		this.state = state;
 	}
 
 	public void borrar() {

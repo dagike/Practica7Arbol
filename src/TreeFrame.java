@@ -13,7 +13,7 @@ public class TreeFrame extends JFrame {
 	}
 
 	public void mostrarFrame() {
-		setDefaultLookAndFeelDecorated(isEnabled());
+		setDefaultLookAndFeelDecorated(true);
 		dibujo = new TreePaint(Color.BLACK,0,1);
 		opc = new TreeType(dibujo);
 

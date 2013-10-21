@@ -82,13 +82,19 @@ public class ArbolBinario<T> extends Arbol<T> {
 
 				if (((NodoDoble<T>) temp).getPreviewNodo() == null
 						|| temp.getNextNodo() == null) {// tiene solo un hijo
-					if (((NodoDoble<T>) temp).getNextNodo() == null)
+					if (((NodoDoble<T>) temp).getNextNodo() == null){
 						((NodoDoble<T>) temp2)
 								.setPreviewNodo(((NodoDoble<T>) temp)
 										.getPreviewNodo());
-					else
-						((NodoDoble<T>) temp2).setPreviewNodo(temp
-								.getNextNodo());
+						((NodoDoble<T>) temp).getPreviewNodo().setNivel(temp.getNivel());
+						((NodoDoble<T>) temp).getPreviewNodo().setNumero(temp.getNumero());
+					}
+					else{
+						((NodoDoble<T>) temp2).setPreviewNodo(temp.getNextNodo());
+						temp.getNextNodo().setNivel(temp.getNivel());
+						temp.getNextNodo().setNumero(temp.getNumero());
+					}
+					modificarHijos(((NodoDoble<T>) temp2).getPreviewNodo());
 					return true;
 				} else {
 					Nodo<T> temp3 = temp;
@@ -106,6 +112,7 @@ public class ArbolBinario<T> extends Arbol<T> {
 							.getPreviewNodo());
 					temp3.setNivel(temp.getNivel());
 					temp3.setNumero(temp.getNumero());
+					modificarHijos(temp3);
 					return true;
 				}
 			}
@@ -119,17 +126,24 @@ public class ArbolBinario<T> extends Arbol<T> {
 
 				if (((NodoDoble<T>) temp).getPreviewNodo() == null
 						|| temp.getNextNodo() == null) {
-					if (((NodoDoble<T>) temp).getNextNodo() == null)
+					if (((NodoDoble<T>) temp).getNextNodo() == null){
 						temp2.setNextNodo(((NodoDoble<T>) temp)
 								.getPreviewNodo());
-					else
+						((NodoDoble<T>) temp).getPreviewNodo().setNivel(temp.getNivel());
+						((NodoDoble<T>) temp).getPreviewNodo().setNumero(temp.getNumero());
+					}
+					else{
 						temp2.setNextNodo(temp.getNextNodo());
+						temp.getNextNodo().setNivel(temp.getNivel());
+						temp.getNextNodo().setNumero(temp.getNumero());
+					}
+					modificarHijos(temp2.getNextNodo());
 					return true;
 				} else {
 					Nodo<T> temp3 = temp;
 					while (((NodoDoble<T>) temp3).getPreviewNodo() != null
 							&& temp3.getNextNodo() != null) {
-						if (((NodoDoble<T>) temp3).getPreviewNodo() == null)
+						if (((NodoDoble<T>) temp3).getNextNodo() != null)
 							temp3 = temp3.getNextNodo();
 						else
 							temp3 = ((NodoDoble<T>) temp3).getPreviewNodo();
@@ -141,6 +155,7 @@ public class ArbolBinario<T> extends Arbol<T> {
 							.getPreviewNodo());
 					temp3.setNivel(temp.getNivel());
 					temp3.setNumero(temp.getNumero());
+					modificarHijos(temp3);
 					return true;
 				}
 			}
@@ -162,6 +177,20 @@ public class ArbolBinario<T> extends Arbol<T> {
 			} catch (NullPointerException e) {
 			}
 			return temp;
+		}
+	}
+	
+	public void modificarHijos(Nodo<T> temp) {
+		if  (((NodoDoble<T>) temp).getPreviewNodo() != null){
+			((NodoDoble<T>) temp).getPreviewNodo().setNivel(temp.getNivel() + 1);
+			((NodoDoble<T>) temp).getPreviewNodo().setNumero((temp.getNumero() * 2) - 1);
+			modificarHijos(((NodoDoble<T>)temp).getPreviewNodo());
+		} 
+		
+		if (temp.getNextNodo() != null){
+			temp.getNextNodo().setNivel(temp.getNivel() + 1);
+			temp.getNextNodo().setNumero(temp.getNumero() * 2);
+			modificarHijos(temp = temp.getNextNodo());
 		}
 	}
 

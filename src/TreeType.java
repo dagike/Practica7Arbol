@@ -20,7 +20,6 @@ public class TreeType extends JPanel {
 	private ArbolBinario<Double> arbolDouble;
 	private ArbolBinario<NumeroComplejo> arbolNumeroComplejo;
 	private int estado;
-	private String buscar;
 
 	public TreeType(TreePaint dibujo) {
 		this.dibujo = dibujo;
@@ -77,6 +76,7 @@ public class TreeType extends JPanel {
 		posicion.gridwidth = 1;
 		posicion.insets = new Insets(0, 30, 0, 0);
 		add(left, posicion);
+		left.setVisible(true);
 	}
 
 	private class Accion implements ActionListener {
@@ -84,16 +84,12 @@ public class TreeType extends JPanel {
 			buscar = textField.getText();
 			if (e.getSource() == buttonString) {
 				estado = 0;
-				left.setVisible(false);
 			} else if (e.getSource() == buttonInteger) {
 				estado = 1;
-				left.setVisible(false);
 			} else if (e.getSource() == buttonDouble) {
 				estado = 2;
-				left.setVisible(true);
 			} else if (e.getSource() == buttonNumeroComplejo) {
 				estado = 3;
-				left.setVisible(true);
 			} else if(!textField.getText().equals("")){
 				if (e.getSource() == buttonAdd) {
 					if (estado == 0) {
@@ -101,8 +97,10 @@ public class TreeType extends JPanel {
 							arbolString = new ArbolBinario<>(String.valueOf(textField.getText()));
 						else
 							arbolString.insertar(String.valueOf(textField.getText()));
-						System.out.println(treeComplete(arbolString.getRaiz()));
-						dibujo.setUpdate(true);
+							System.out.println(treeComplete(arbolString.getRaiz()));
+							dibujo.setUpdate(true);
+							dibujo.repaint();
+							//dibujo.setUpdate(false);
 						
 					} else if (estado == 1) {
 						if (arbolInteger == null)
@@ -124,9 +122,7 @@ public class TreeType extends JPanel {
 						left.setVisible(true);
 					} else if (e.getSource() == buttonDelete) {
 						arbolString.eliminar(textField.getText());
-						
 						System.out.println(treeComplete(arbolString.getRaiz()));
-						left.setVisible(true);
 					}
 			}
 		}
@@ -135,10 +131,7 @@ public class TreeType extends JPanel {
 			String s = "";
 			if (((NodoDoble<String>) raiz).getPreviewNodo() != null)
 				s += treeComplete(((NodoDoble<String>) raiz).getPreviewNodo());
-			s += raiz.getInfo() + " ";
-			dibujo.position(String.valueOf(raiz.getInfo()), raiz.getNivel(), raiz.getNumero() );
-			dibujo.setUpdate(true);
-			dibujo.repaint();
+			s += raiz.getInfo() + " " + raiz.getNivel() + " " + raiz.getNumero();
 			if (raiz.getNextNodo() != null)
 				s += treeComplete(raiz.getNextNodo());
 			return s;
