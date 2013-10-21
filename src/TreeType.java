@@ -90,7 +90,7 @@ public class TreeType extends JPanel {
 				dibujo.setState(3);
 			} else if(!textField.getText().equals("")){
 				if (e.getSource() == buttonAdd) {
-					
+					boolean band = true;
 					//validacion segun el tipo de dato
 					switch(estado){
 						case 0:
@@ -99,16 +99,50 @@ public class TreeType extends JPanel {
 						case 1:
 							for(int i = 0 ; i < String.valueOf(textField.getText()).length() ; i++)
 								if(String.valueOf(textField.getText()).charAt(i) < '0' || textField.getText().charAt(i) > '9') 
+									band = false;
+							if(band)
+								System.out.println("Agregar");
+							else
+								System.out.println("Error");
 						break;
 						case 2:
-							boolean band = true;
+							int band2 = 0;
 							for(int i = 0 ; i < String.valueOf(textField.getText()).length() ; i++)
-								if((String.valueOf(textField.getText()).charAt(i) < '0' || textField.getText().charAt(i) > '9'||band)&& String.valueOf(textField.getText()).charAt(i) != '.')
+								if(String.valueOf(textField.getText()).charAt(i) < '0' || textField.getText().charAt(i) > '9' || String.valueOf(textField.getText()).charAt(i) != '.')
 									if(String.valueOf(textField.getText()).charAt(i) == '.')
+										band2++;
+									else if(String.valueOf(textField.getText()).charAt(i) < '0' || textField.getText().charAt(i) > '9' )
 										band = false;
+							if(band && band2 < 2)
+								System.out.println("Agregar");
+							else
+								System.out.println("Error");
 						break;
 						case 3:
-							
+							int cont = 0, cont2 = 0;
+							if(String.valueOf(textField.getText()).endsWith("i")){
+								for(int i = 0 ; i < String.valueOf(textField.getText()).length() - 1 ; i++){
+									if(String.valueOf(textField.getText()).charAt(i) < '0' || textField.getText().charAt(i) > '9' || String.valueOf(textField.getText()).charAt(i) != '.')
+										if(String.valueOf(textField.getText()).charAt(i) == '.')
+											cont++;
+										else if(String.valueOf(textField.getText()).charAt(i) == '+'){
+											cont2++;
+											cont = 0;
+										}else if(String.valueOf(textField.getText()).charAt(i) < '0' || textField.getText().charAt(i) > '9' )
+											band = false; 
+								}
+							}
+							else
+								band = false;
+							if(band && cont < 2 && cont2 <2){
+								String parteReal = String.valueOf(textField.getText()).substring(0, String.valueOf(textField.getText()).lastIndexOf("+"));
+								String parteImaginaria = String.valueOf(textField.getText()).substring(String.valueOf(textField.getText()).lastIndexOf("+")+1, String.valueOf(textField.getText()).lastIndexOf("i"));
+								NumeroComplejo numeroComplejo = new NumeroComplejo(Double.valueOf(parteReal),Double.valueOf(parteImaginaria));
+								System.out.println("Agregar" + numeroComplejo);
+							}
+							else
+								System.out.println("Error");
+								
 						
 							
 					}

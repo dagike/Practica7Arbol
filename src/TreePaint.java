@@ -13,7 +13,6 @@ import geometria.*;
 public class TreePaint extends JPanel {
 	private Color c;
 	private int x, y;
-	private String message = "";
 	private ArbolBinario<String> arbolString;
 	private ArbolBinario<Integer> arbolInteger;
 	private ArbolBinario<Double> arbolDouble;
@@ -70,7 +69,6 @@ public class TreePaint extends JPanel {
 		for (int lvl = 0; lvl < nivel; lvl++) {
 			numeroTotal *= 2;
 		}
-		this.message = message;
 		this.y = nivel * 75;
 		this.x = (700/(numeroTotal+1))*numero-1 - 25;
 	}
