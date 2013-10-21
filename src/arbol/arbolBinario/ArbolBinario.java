@@ -15,19 +15,17 @@ public class ArbolBinario<T> extends Arbol<T> {
 		nodoDoble.setNumero(1);
 		nodoDoble.setNivel(0);
 	}
-
 	public Nodo<T> getRaiz() {
 		return nodoDoble;
 	}
 
-	public boolean insertar(T info) {// Fercho
+	public boolean insertar(T info) {
 		if ((buscar(info)) != null)
 			return false;
 		else {
 			int numero = 1, nivel = 0;
 			Nodo<T> temp = nodoDoble, antes = null;
 			try {
-
 				while (!info.equals(temp.getInfo())) {
 					if (temp.compareTo(info) < 0) {
 						numero = (numero * 2) - 1;
@@ -40,7 +38,7 @@ public class ArbolBinario<T> extends Arbol<T> {
 					}
 					nivel++;
 				}
-			} catch (NullPointerException e) {
+			}catch(NullPointerException e) {
 			}
 			temp = new NodoDoble<T>(info);
 			temp.setNivel(nivel);
@@ -55,7 +53,7 @@ public class ArbolBinario<T> extends Arbol<T> {
 		}
 	}
 
-	public boolean eliminar(T info) {// Pac
+	public boolean eliminar(T info) {
 		if (info.equals(nodoDoble.getInfo())) {
 			System.out.println("Pertenece a la Raiz no puede ser eliminado");
 			return false;
@@ -162,7 +160,7 @@ public class ArbolBinario<T> extends Arbol<T> {
 		}
 	}
 
-	public Nodo<T> buscar(T info) {// Fercho
+	public Nodo<T> buscar(T info) {
 		if (info.equals(NODORAIZ)) {
 			return nodoDoble;
 		} else {
@@ -194,7 +192,7 @@ public class ArbolBinario<T> extends Arbol<T> {
 		}
 	}
 
-	public String preOrder(Nodo<T> raiz) {// Fercho
+	public String preOrder(Nodo<T> raiz) {
 		String s = "";
 		s += raiz.getInfo() + "\n";
 		if (((NodoDoble<T>) raiz).getPreviewNodo() != null) {
@@ -206,7 +204,7 @@ public class ArbolBinario<T> extends Arbol<T> {
 		return s;
 	}
 
-	public String inOrder(Nodo<T> raiz) {// Serch
+	public String inOrder(Nodo<T> raiz) {
 		String s = "";
 		if (((NodoDoble<T>) raiz).getPreviewNodo() != null)
 			s += inOrder(((NodoDoble<T>) raiz).getPreviewNodo());
@@ -216,7 +214,7 @@ public class ArbolBinario<T> extends Arbol<T> {
 		return s;
 	}
 
-	public String posOrder(Nodo<T> raiz) {// Serch
+	public String posOrder(Nodo<T> raiz) {
 		String s = "";
 		if (((NodoDoble<T>) raiz).getPreviewNodo() != null)
 			s += posOrder(((NodoDoble<T>) raiz).getPreviewNodo());

@@ -14,7 +14,7 @@ public class TreeFrame extends JFrame {
 	public void mostrarFrame() {
 		setDefaultLookAndFeelDecorated(true);
 		
-		dibujo = new TreePaint(Color.BLACK,0,1);
+		dibujo = new TreePaint();
 		opc = new TreeType(dibujo);
 
 		JButton posOrder = new JButton("Posorder"), inOrder = new JButton("Inorder"), preOrder = new JButton("Preorder");
@@ -48,7 +48,6 @@ public class TreeFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
-		//System.out.println("\n"+opc.arbolString.inOrder(opc.arbolString.getRaiz()));
 	}
 
 	public static void main(String args[]) {

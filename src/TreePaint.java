@@ -14,39 +14,26 @@ public class TreePaint extends JPanel {
 	private Color c;
 	private int x, y;
 	private String message = "";
-	private boolean update;
-	private Nodo<String> raizString;
-	private Nodo<Integer> raizInteger;
-	private Nodo<Double> raizDouble;
-	private Nodo<NumeroComplejo> raizNumeroComplejo;
+	private ArbolBinario<String> arbolString;
+	private ArbolBinario<Integer> arbolInteger;
+	private ArbolBinario<Double> arbolDouble;
+	private ArbolBinario<NumeroComplejo> arbolNumeroComplejo;
 	private int state;
+	private boolean error;
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		g.setColor(c);
 		switch(state){
-			case 1: 
-				//metodo para calcular el numero de nodos
-				// recorrido(nodoRaiz,g)
-				// ya dentro de ese metodo recorrido vas creando los circulos y lineas
-				//
-				
-				Circulo circulo = new Circulo();
-				Linea linea = new Linea();
-				if (((NodoDoble<String>) raizString).getPreviewNodo() != null){
-					raizString = ((NodoDoble<String>) raizString).getPreviewNodo();
-				}
-				position(String.valueOf(raizString.getInfo()), raizString.getNivel(), raizString.getNumero() );
-				circulo.setMessage(message);
-				circulo.dibujar(g, x, y);
-				linea.dibujar(g, x, y);
-				if (raizString.getNextNodo() != null){
-					paintComponent(g);
-					raizString = raizString.getNextNodo();
+			case 0: 
+				if(arbolString!=null){
+					//Funcion recursiva para calcular el nivel máximo de ese arbol
+
+					x=300;
+					y=0;
+					recorrido(arbolString.getRaiz(),g,x,y);
 				}
 			break;
-			case 2:
+			/*case 2:
 				
 				Circulo circulo = new Circulo();
 				Linea linea = new Linea();
@@ -61,41 +48,14 @@ public class TreePaint extends JPanel {
 					paintComponent(g);
 					raizString = raizString.getNextNodo();
 				}
-			break;
+			break;*/
 		}	
-		/*position(1, 1);
-		circulo.setMessage("B");
-		circulo.dibujar(g, x, y);
-		linea.dibujar(g, x, y);
-		
-		position(1, 2);
-		circulo.setMessage("C");
-		circulo.dibujar(g, x, y);
-		linea.dibujar(g, x, y);*/
-		
-		/*g.setColor(c);
-		g.drawOval(x, y, 50, 50);
-		g.drawString("A", x + 22, y + 28);
-		g.drawLine((x + 25), (y + 50), (x + 150), (y + 75));// RIGHT
-		g.drawLine((x + 25), (y + 50), (x - 100), (y + 75));// LEFT*/
-
-		/*// RIGHT
-		g.drawOval(x + 125, y + 75, 50, 50);
-		g.drawString("R", x + 22 + 125, y + 28 + 75);
-
-		// LEFT
-		g.drawOval(x - 125, y + 75, 50, 50);
-		g.drawString("L", x + 22 - 125, y + 28 + 75);*/
 	}
-
-	public TreePaint(Color c,int nivel, int numero) {
+	public TreePaint(){
 		super();
 		setBackground(Color.WHITE);
-		this.c = c;
-		update = false;
-		state = 1;
+		state = 0;
 	}
-
 	public void position(String message, int nivel, int numero) {
 		int numeroTotal = 1;
 		for (int lvl = 0; lvl < nivel; lvl++) {
@@ -105,51 +65,66 @@ public class TreePaint extends JPanel {
 		this.y = nivel * 75;
 		this.x = (700/(numeroTotal+1))*numero-1 - 25;
 	}
-	
-	public void setRaizString(Nodo<String> raiz){
-		this.raizString = raiz;
-	}
-	
-	public void setRaizInteger(Nodo<Integer> raiz){
-		this.raizInteger = raiz;
-	}
-	
-	public void setRaizDouble(Nodo<Double> raiz){
-		this.raizDouble = raiz;
-	}
-	
-	public void setRaizNumeroComplejo(Nodo<NumeroComplejo> raiz){
-		this.raizNumeroComplejo = raiz;
-	}
-	
-	public void setUpdate(boolean update){
-		this.update = update;
-	}
-
-	public void setColor(Color c) {
-		this.c = c;
-	}
-	
-	public void setState(int state){
-		this.state = state;
-	}
-
-	public void borrar() {
+	public void setState(int state){this.state = state;}
+	public void posOrder(){}
+	public void inOrder(){}
+	public void preOrder(){}
+	public void agregarString(String agrega){
+		if (arbolString == null)
+			arbolString = new ArbolBinario<>(agrega);
+		else{
+			if(!arbolString.insertar(agrega))
+				error=true;
+		}
 		repaint();
 	}
-
-	public void posOrder() {
-		// TODO Auto-generated method stub
-
+	public void eliminarString(String elimin){
+		if (arbolString == null)
+			error=true;
+		else{
+			if(!arbolString.eliminar(elimin))
+				error=true;
+		}
+		repaint();
 	}
-
-	public void inOrder() {
-		// TODO Auto-generated method stub
-
+	
+	public void recorrido(Nodo<String> raiz,Graphics g,int x,int y){
+		int x1,y1;
+		Circulo circulo = new Circulo();
+		circulo.setTamanio(50);
+		circulo.setFontSize(12);
+		circulo.setMessage(raiz.getInfo());
+		circulo.dibujar(g,x,y);
+		if (raiz.getNextNodo() != null){
+			Linea linea = new Linea();
+			linea.setCual(linea.RIGHT);
+			linea.dibujar(g,x,y);
+			x1=x;
+			y1=y;
+			x1+=125;
+			y1+=75;
+			recorrido(raiz.getNextNodo(),g,x1,y1);
+		}
+		if (((NodoDoble)raiz).getPreviewNodo() != null){
+			Linea linea = new Linea();
+			linea.setCual(linea.LEFT);
+			linea.dibujar(g,x,y);
+			x1=x;
+			y1=y;
+			x1-=125;
+			y1+=75;
+			recorrido(((NodoDoble<String>)raiz).getPreviewNodo(),g,x1,y1);
+		}
 	}
-
-	public void preOrder() {
-		// TODO Auto-generated method stub
-
-	}
+	
+	/*public String treeComplete(Nodo<String> raiz){
+			String s = "";
+			if (((NodoDoble<String>) raiz).getPreviewNodo() != null)
+				s += treeComplete(((NodoDoble<String>) raiz).getPreviewNodo());
+			s += raiz.getInfo() + " " + raiz.getNivel() + " " + raiz.getNumero();
+			if (raiz.getNextNodo() != null)
+				s += treeComplete();
+			return s;
+	}*/
+	
 }

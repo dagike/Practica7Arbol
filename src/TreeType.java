@@ -9,16 +9,11 @@ import numero.NumeroComplejo;
 import arbol.arbolBinario.ArbolBinario;
 
 public class TreeType extends JPanel {
-	private JRadioButton buttonInteger, buttonString, buttonDouble,
-			buttonNumeroComplejo;
+	private JRadioButton buttonInteger, buttonString, buttonDouble,buttonNumeroComplejo;
 	private JButton buttonAdd, buttonDelete;
 	private TreePaint dibujo;
 	private JTextField textField;
 	private JPanel left;
-	private ArbolBinario<String> arbolString;
-	private ArbolBinario<Integer> arbolInteger;
-	private ArbolBinario<Double> arbolDouble;
-	private ArbolBinario<NumeroComplejo> arbolNumeroComplejo;
 	private int estado;
 
 	public TreeType(TreePaint dibujo) {
@@ -81,20 +76,36 @@ public class TreeType extends JPanel {
 
 	private class Accion implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			buscar = textField.getText();
 			if (e.getSource() == buttonString) {
-				estado = 0;
+				estado=0;
+				dibujo.setState(0);
 			} else if (e.getSource() == buttonInteger) {
-				estado = 1;
+				estado=1;
+				dibujo.setState(1);
 			} else if (e.getSource() == buttonDouble) {
-				estado = 2;
+				estado=2;
+				dibujo.setState(2);
 			} else if (e.getSource() == buttonNumeroComplejo) {
-				estado = 3;
+				estado=3;
+				dibujo.setState(3);
 			} else if(!textField.getText().equals("")){
 				if (e.getSource() == buttonAdd) {
+					
+					//validacion segun el tipo de dato
+					switch(estado){
+						case 0:dibujo.agregarString(String.valueOf(textField.getText()));break;
+					}
+				}
+				else if (e.getSource() == buttonDelete) {
+					switch(estado){
+						case 0:dibujo.eliminarString(String.valueOf(textField.getText()));break;
+					}
+				}	
+				/*
+				Integer.valueOf(textField.getText())	
 					if (estado == 0) {
 						if (arbolString == null)
-							arbolString = new ArbolBinario<>(String.valueOf(textField.getText()));
+							arbolString = new ArbolBinario<>();
 						else
 							arbolString.insertar(String.valueOf(textField.getText()));
 							System.out.println(treeComplete(arbolString.getRaiz()));
@@ -104,13 +115,13 @@ public class TreeType extends JPanel {
 						
 					} else if (estado == 1) {
 						if (arbolInteger == null)
-							arbolInteger = new ArbolBinario<>(Integer.valueOf(textField.getText()));
+							arbolInteger = new ArbolBinario<>();
 						else
 							arbolInteger.insertar(Integer.valueOf(textField.getText()));
 						dibujo.position(String.valueOf(arbolInteger.buscar(Integer.valueOf(textField.getText())).getInfo()), arbolInteger.buscar(Integer.valueOf(textField.getText())).getNivel(), arbolInteger.buscar(Integer.valueOf(textField.getText())).getNumero());
 						
 						dibujo.repaint();
-					} else if (estado == 2) {
+					}else if (estado == 2) {
 						if (arbolDouble == null)
 							arbolDouble = new ArbolBinario<>(Double.valueOf(textField.getText()));
 						else
@@ -122,18 +133,8 @@ public class TreeType extends JPanel {
 						left.setVisible(true);
 					} else if (e.getSource() == buttonDelete) {
 						arbolString.eliminar(textField.getText());
-						System.out.println(treeComplete(arbolString.getRaiz()));
-					}
+					}*/
 			}
 		}
-	}
-	public String treeComplete(Nodo<String> raiz){
-			String s = "";
-			if (((NodoDoble<String>) raiz).getPreviewNodo() != null)
-				s += treeComplete(((NodoDoble<String>) raiz).getPreviewNodo());
-			s += raiz.getInfo() + " " + raiz.getNivel() + " " + raiz.getNumero();
-			if (raiz.getNextNodo() != null)
-				s += treeComplete(raiz.getNextNodo());
-			return s;
 	}
 }
