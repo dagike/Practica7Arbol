@@ -90,67 +90,78 @@ public class TreeType extends JPanel {
 				dibujo.setState(3);
 			} else if(!textField.getText().equals("")){
 				if (e.getSource() == buttonAdd) {
-					
-					//validacion segun el tipo de dato
+					boolean band=true;
 					switch(estado){
-						case 0:
-							dibujo.agregarString(String.valueOf(textField.getText()));
-						break;
+						case 0:dibujo.agregarString(String.valueOf(textField.getText()));break;
 						case 1:
-							for(int i = 0 ; i < String.valueOf(textField.getText()).length() ; i++)
-								if(String.valueOf(textField.getText()).charAt(i) < '0' || textField.getText().charAt(i) > '9') 
+							band=true;
+							for(int i = 0 ; i<String.valueOf(textField.getText()).length()&&band; i++){
+								if(String.valueOf(textField.getText()).charAt(i) < '0' || String.valueOf(textField.getText()).charAt(i) > '9')
+									band=false;
+							}
+							if(band)
+								dibujo.agregarInteger(Integer.valueOf(textField.getText()));
+							else
+								System.out.println("Solo Numeros");
 						break;
 						case 2:
-							boolean band = true;
-							for(int i = 0 ; i < String.valueOf(textField.getText()).length() ; i++)
-								if((String.valueOf(textField.getText()).charAt(i) < '0' || textField.getText().charAt(i) > '9'||band)&& String.valueOf(textField.getText()).charAt(i) != '.')
-									if(String.valueOf(textField.getText()).charAt(i) == '.')
-										band = false;
+						int count=0;band=true;
+							for(int i = 0 ; i < String.valueOf(textField.getText()).length()&&band; i++){
+								if((String.valueOf(textField.getText()).charAt(i) < '0' || String.valueOf(textField.getText()).charAt(i) > '9')){
+									if(String.valueOf(textField.getText()).charAt(i) == '.'){
+										count++;
+										if(count>1)
+											band=false;
+									}
+									else
+										band=false;
+								}
+							}
+							if(band)
+								dibujo.agregarDouble(Double.valueOf(textField.getText()));
+							else
+								System.out.println("Solo Numeros");
 						break;
-						case 3:
-							
-						
+						case 3:		
 							
 					}
 				}
 				else if (e.getSource() == buttonDelete) {
+					boolean band=true;
 					switch(estado){
 						case 0:dibujo.eliminarString(String.valueOf(textField.getText()));break;
+						case 1:
+							band=true;
+							for(int i = 0 ; i<String.valueOf(textField.getText()).length()&&band; i++){
+								if(String.valueOf(textField.getText()).charAt(i) < '0' || String.valueOf(textField.getText()).charAt(i) > '9')
+									band=false;
+							}
+							if(band)
+								dibujo.eliminarInteger(Integer.valueOf(textField.getText()));
+							else
+								System.out.println("Solo Numeros");
+						break;
+						case 2:
+						int count=0;band=true;
+							for(int i = 0 ; i < String.valueOf(textField.getText()).length()&&band; i++){
+								if((String.valueOf(textField.getText()).charAt(i) < '0' || String.valueOf(textField.getText()).charAt(i) > '9')){
+									if(String.valueOf(textField.getText()).charAt(i) == '.'){
+										count++;
+										if(count>1)
+											band=false;
+									}
+									else
+										band=false;
+								}
+							}
+							if(band)
+								dibujo.eliminarDouble(Double.valueOf(textField.getText()));
+							else
+								System.out.println("Solo Numeros");
+						break;
+						
 					}
 				}	
-				/*
-				Integer.valueOf(textField.getText())	
-					if (estado == 0) {
-						if (arbolString == null)
-							arbolString = new ArbolBinario<>();
-						else
-							arbolString.insertar(String.valueOf(textField.getText()));
-							System.out.println(treeComplete(arbolString.getRaiz()));
-							dibujo.setUpdate(true);
-							dibujo.repaint();
-							//dibujo.setUpdate(false);
-						
-					} else if (estado == 1) {
-						if (arbolInteger == null)
-							arbolInteger = new ArbolBinario<>();
-						else
-							arbolInteger.insertar(Integer.valueOf(textField.getText()));
-						dibujo.position(String.valueOf(arbolInteger.buscar(Integer.valueOf(textField.getText())).getInfo()), arbolInteger.buscar(Integer.valueOf(textField.getText())).getNivel(), arbolInteger.buscar(Integer.valueOf(textField.getText())).getNumero());
-						
-						dibujo.repaint();
-					}else if (estado == 2) {
-						if (arbolDouble == null)
-							arbolDouble = new ArbolBinario<>(Double.valueOf(textField.getText()));
-						else
-							arbolDouble.insertar(Double.valueOf(textField.getText()));
-						dibujo.position(String.valueOf(arbolDouble.buscar(Double.valueOf(textField.getText())).getInfo()), arbolDouble.buscar(Double.valueOf(textField.getText())).getNivel(), arbolDouble.buscar(Double.valueOf(textField.getText())).getNumero());
-						dibujo.setUpdate(true);
-						dibujo.repaint();
-					} 
-						left.setVisible(true);
-					} else if (e.getSource() == buttonDelete) {
-						arbolString.eliminar(textField.getText());
-					}*/
 			}
 		}
 	}

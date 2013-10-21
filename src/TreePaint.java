@@ -26,7 +26,6 @@ public class TreePaint extends JPanel {
 		switch(state){
 			case 0: 
 				if(arbolString!=null){
-					//Funcion recursiva para calcular el nivel máximo de ese arbol
 					System.out.println(maxLevelString(arbolString.getRaiz(),arbolString.getRaiz().getNivel()));
 					x=300;
 					y=0;
@@ -35,7 +34,6 @@ public class TreePaint extends JPanel {
 			break;
 			case 1:
 				if(arbolInteger!=null){
-					//Funcion recursiva para calcular el nivel máximo de ese arbol
 					System.out.println(maxLevelInteger(arbolInteger.getRaiz(),arbolInteger.getRaiz().getNivel()));
 					x=300;
 					y=0;
@@ -44,7 +42,6 @@ public class TreePaint extends JPanel {
 			break;
 			case 2:
 				if(arbolDouble!=null){
-					//Funcion recursiva para calcular el nivel máximo de ese arbol
 					System.out.println(maxLevelDouble(arbolDouble.getRaiz(),arbolDouble.getRaiz().getNivel()));
 					x=300;
 					y=0;
@@ -52,7 +49,6 @@ public class TreePaint extends JPanel {
 				}
 			case 3:
 				if(arbolNumeroComplejo!=null){
-					//Funcion recursiva para calcular el nivel máximo de ese arbol
 					System.out.println(maxLevelNumeroComplejo(arbolNumeroComplejo.getRaiz(),arbolNumeroComplejo.getRaiz().getNivel()));
 					x=300;
 					y=0;
@@ -74,10 +70,11 @@ public class TreePaint extends JPanel {
 		this.y = nivel * 75;
 		this.x = (700/(numeroTotal+1))*numero-1 - 25;
 	}
-	public void setState(int state){this.state = state;}
+	public void setState(int state){this.state = state;repaint();}
 	public void posOrder(){}
 	public void inOrder(){}
 	public void preOrder(){}
+	
 	public void agregarString(String agrega){
 		if (arbolString == null)
 			arbolString = new ArbolBinario<>(agrega);
@@ -87,6 +84,34 @@ public class TreePaint extends JPanel {
 		}
 		repaint();
 	}
+	public void agregarInteger(int agrega){
+		if (arbolInteger == null)
+			arbolInteger = new ArbolBinario<>(agrega);
+		else{
+			if(!arbolInteger.insertar(agrega))
+				error=true;
+		}
+		repaint();
+	}
+	public void agregarDouble(double agrega){
+		if (arbolDouble == null)
+			arbolDouble = new ArbolBinario<>(agrega);
+		else{
+			if(!arbolDouble.insertar(agrega))
+				error=true;
+		}
+		repaint();
+	}
+	public void agregarNumeroComplejo(NumeroComplejo agrega){
+		if (arbolNumeroComplejo == null)
+			arbolNumeroComplejo = new ArbolBinario<>(agrega);
+		else{
+			if(!arbolNumeroComplejo.insertar(agrega))
+				error=true;
+		}
+		repaint();
+	}
+	
 	public void eliminarString(String elimin){
 		if (arbolString == null)
 			error=true;
@@ -96,6 +121,35 @@ public class TreePaint extends JPanel {
 		}
 		repaint();
 	}
+	public void eliminarInteger(int elimin){
+		if (arbolInteger == null)
+			error=true;
+		else{
+			if(!arbolInteger.eliminar(elimin))
+				error=true;
+		}
+		repaint();
+	}
+	public void eliminarDouble(double elimin){
+		if (arbolDouble == null)
+			error=true;
+		else{
+			if(!arbolDouble.eliminar(elimin))
+				error=true;
+		}
+		repaint();
+	}
+	public void eliminarNumeroComplejo(NumeroComplejo elimin){
+		if (arbolNumeroComplejo == null)
+			error=true;
+		else{
+			if(!arbolNumeroComplejo.eliminar(elimin))
+				error=true;
+		}
+		repaint();
+	}
+	
+	
 	
 	public void recorridoString(Nodo<String> raiz,Graphics g,int x,int y){
 		int x1,y1;
@@ -125,7 +179,6 @@ public class TreePaint extends JPanel {
 			recorridoString(((NodoDoble<String>)raiz).getPreviewNodo(),g,x1,y1);
 		}
 	}
-	
 	public void recorridoInteger(Nodo<Integer> raiz,Graphics g,int x,int y){
 		int x1,y1;
 		Circulo circulo = new Circulo();
@@ -154,7 +207,6 @@ public class TreePaint extends JPanel {
 			recorridoInteger(((NodoDoble<Integer>)raiz).getPreviewNodo(),g,x1,y1);
 		}
 	}
-	
 	public void recorridoDouble(Nodo<Double> raiz,Graphics g,int x,int y){
 		int x1,y1;
 		Circulo circulo = new Circulo();
@@ -183,7 +235,6 @@ public class TreePaint extends JPanel {
 			recorridoDouble(((NodoDoble<Double>)raiz).getPreviewNodo(),g,x1,y1);
 		}
 	}
-	
 	public void recorridoNumeroComplejo(Nodo<NumeroComplejo> raiz,Graphics g,int x,int y){
 		int x1,y1;
 		Circulo circulo = new Circulo();
@@ -224,8 +275,7 @@ public class TreePaint extends JPanel {
 			maxlevel = maxLevelString(raiz.getNextNodo(),raiz.getNextNodo().getNivel());
 		return maxlevel;
 	}
-	
-		public int maxLevelInteger(Nodo<Integer> raiz, int nivel){
+	public int maxLevelInteger(Nodo<Integer> raiz, int nivel){
 		int maxlevel = 0;
 		if(maxlevel < nivel)
 			maxlevel = nivel;
@@ -236,8 +286,7 @@ public class TreePaint extends JPanel {
 			maxlevel = maxLevelInteger(raiz.getNextNodo(),raiz.getNextNodo().getNivel());
 		return maxlevel;
 	}
-	
-		public int maxLevelDouble(Nodo<Double> raiz, int nivel){
+	public int maxLevelDouble(Nodo<Double> raiz, int nivel){
 		int maxlevel = 0;
 		if(maxlevel < nivel)
 			maxlevel = nivel;
@@ -248,8 +297,7 @@ public class TreePaint extends JPanel {
 			maxlevel = maxLevelDouble(raiz.getNextNodo(),raiz.getNextNodo().getNivel());
 		return maxlevel;
 	}
-	
-		public int maxLevelNumeroComplejo(Nodo<NumeroComplejo> raiz, int nivel){
+	public int maxLevelNumeroComplejo(Nodo<NumeroComplejo> raiz, int nivel){
 		int maxlevel = 0;
 		if(maxlevel < nivel)
 			maxlevel = nivel;
@@ -260,15 +308,4 @@ public class TreePaint extends JPanel {
 			maxlevel = maxLevelNumeroComplejo(raiz.getNextNodo(),raiz.getNextNodo().getNivel());
 		return maxlevel;
 	}
-	
-	/*public String treeComplete(Nodo<String> raiz){
-			String s = "";
-			if (((NodoDoble<String>) raiz).getPreviewNodo() != null)
-				s += treeComplete(((NodoDoble<String>) raiz).getPreviewNodo());
-			s += raiz.getInfo() + " " + raiz.getNivel() + " " + raiz.getNumero();
-			if (raiz.getNextNodo() != null)
-				s += treeComplete();
-			return s;
-	}*/
-	
 }
