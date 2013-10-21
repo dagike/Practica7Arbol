@@ -27,28 +27,37 @@ public class TreePaint extends JPanel {
 			case 0: 
 				if(arbolString!=null){
 					//Funcion recursiva para calcular el nivel máximo de ese arbol
-
+					System.out.println(maxLevelString(arbolString.getRaiz(),arbolString.getRaiz().getNivel()));
 					x=300;
 					y=0;
-					recorrido(arbolString.getRaiz(),g,x,y);
+					recorridoString(arbolString.getRaiz(),g,x,y);
 				}
 			break;
-			/*case 2:
-				
-				Circulo circulo = new Circulo();
-				Linea linea = new Linea();
-				if (((NodoDoble<Integer>) raizInteger).getPreviewNodo() != null){
-					raizInteger = ((NodoDoble<Integer>) raizInteger).getPreviewNodo();
+			case 1:
+				if(arbolInteger!=null){
+					//Funcion recursiva para calcular el nivel máximo de ese arbol
+					System.out.println(maxLevelInteger(arbolInteger.getRaiz(),arbolInteger.getRaiz().getNivel()));
+					x=300;
+					y=0;
+					recorridoInteger(arbolInteger.getRaiz(),g,x,y);
 				}
-				position(String.valueOf(raizInteger.getInfo()), raizInteger.getNivel(), raizInteger.getNumero() );
-				circulo.setMessage(message);
-				circulo.dibujar(g, x, y);
-				linea.dibujar(g, x, y);
-				if (raizString.getNextNodo() != null){
-					paintComponent(g);
-					raizString = raizString.getNextNodo();
+			break;
+			case 2:
+				if(arbolDouble!=null){
+					//Funcion recursiva para calcular el nivel máximo de ese arbol
+					System.out.println(maxLevelDouble(arbolDouble.getRaiz(),arbolDouble.getRaiz().getNivel()));
+					x=300;
+					y=0;
+					recorridoDouble(arbolDouble.getRaiz(),g,x,y);
 				}
-			break;*/
+			case 3:
+				if(arbolNumeroComplejo!=null){
+					//Funcion recursiva para calcular el nivel máximo de ese arbol
+					System.out.println(maxLevelNumeroComplejo(arbolNumeroComplejo.getRaiz(),arbolNumeroComplejo.getRaiz().getNivel()));
+					x=300;
+					y=0;
+					recorridoNumeroComplejo(arbolNumeroComplejo.getRaiz(),g,x,y);
+				}
 		}	
 	}
 	public TreePaint(){
@@ -88,7 +97,7 @@ public class TreePaint extends JPanel {
 		repaint();
 	}
 	
-	public void recorrido(Nodo<String> raiz,Graphics g,int x,int y){
+	public void recorridoString(Nodo<String> raiz,Graphics g,int x,int y){
 		int x1,y1;
 		Circulo circulo = new Circulo();
 		circulo.setTamanio(50);
@@ -103,7 +112,7 @@ public class TreePaint extends JPanel {
 			y1=y;
 			x1+=125;
 			y1+=75;
-			recorrido(raiz.getNextNodo(),g,x1,y1);
+			recorridoString(raiz.getNextNodo(),g,x1,y1);
 		}
 		if (((NodoDoble)raiz).getPreviewNodo() != null){
 			Linea linea = new Linea();
@@ -113,8 +122,143 @@ public class TreePaint extends JPanel {
 			y1=y;
 			x1-=125;
 			y1+=75;
-			recorrido(((NodoDoble<String>)raiz).getPreviewNodo(),g,x1,y1);
+			recorridoString(((NodoDoble<String>)raiz).getPreviewNodo(),g,x1,y1);
 		}
+	}
+	
+	public void recorridoInteger(Nodo<Integer> raiz,Graphics g,int x,int y){
+		int x1,y1;
+		Circulo circulo = new Circulo();
+		circulo.setTamanio(50);
+		circulo.setFontSize(12);
+		circulo.setMessage(String.valueOf(raiz.getInfo()));
+		circulo.dibujar(g,x,y);
+		if (raiz.getNextNodo() != null){
+			Linea linea = new Linea();
+			linea.setCual(linea.RIGHT);
+			linea.dibujar(g,x,y);
+			x1=x;
+			y1=y;
+			x1+=125;
+			y1+=75;
+			recorridoInteger(raiz.getNextNodo(),g,x1,y1);
+		}
+		if (((NodoDoble)raiz).getPreviewNodo() != null){
+			Linea linea = new Linea();
+			linea.setCual(linea.LEFT);
+			linea.dibujar(g,x,y);
+			x1=x;
+			y1=y;
+			x1-=125;
+			y1+=75;
+			recorridoInteger(((NodoDoble<Integer>)raiz).getPreviewNodo(),g,x1,y1);
+		}
+	}
+	
+	public void recorridoDouble(Nodo<Double> raiz,Graphics g,int x,int y){
+		int x1,y1;
+		Circulo circulo = new Circulo();
+		circulo.setTamanio(50);
+		circulo.setFontSize(12);
+		circulo.setMessage(String.valueOf(raiz.getInfo()));
+		circulo.dibujar(g,x,y);
+		if (raiz.getNextNodo() != null){
+			Linea linea = new Linea();
+			linea.setCual(linea.RIGHT);
+			linea.dibujar(g,x,y);
+			x1=x;
+			y1=y;
+			x1+=125;
+			y1+=75;
+			recorridoDouble(raiz.getNextNodo(),g,x1,y1);
+		}
+		if (((NodoDoble)raiz).getPreviewNodo() != null){
+			Linea linea = new Linea();
+			linea.setCual(linea.LEFT);
+			linea.dibujar(g,x,y);
+			x1=x;
+			y1=y;
+			x1-=125;
+			y1+=75;
+			recorridoDouble(((NodoDoble<Double>)raiz).getPreviewNodo(),g,x1,y1);
+		}
+	}
+	
+	public void recorridoNumeroComplejo(Nodo<NumeroComplejo> raiz,Graphics g,int x,int y){
+		int x1,y1;
+		Circulo circulo = new Circulo();
+		circulo.setTamanio(50);
+		circulo.setFontSize(12);
+		circulo.setMessage(String.valueOf(raiz.getInfo()));
+		circulo.dibujar(g,x,y);
+		if (raiz.getNextNodo() != null){
+			Linea linea = new Linea();
+			linea.setCual(linea.RIGHT);
+			linea.dibujar(g,x,y);
+			x1=x;
+			y1=y;
+			x1+=125;
+			y1+=75;
+			recorridoNumeroComplejo(raiz.getNextNodo(),g,x1,y1);
+		}
+		if (((NodoDoble)raiz).getPreviewNodo() != null){
+			Linea linea = new Linea();
+			linea.setCual(linea.LEFT);
+			linea.dibujar(g,x,y);
+			x1=x;
+			y1=y;
+			x1-=125;
+			y1+=75;
+			recorridoNumeroComplejo(((NodoDoble<NumeroComplejo>)raiz).getPreviewNodo(),g,x1,y1);
+		}
+	}
+	
+	public int maxLevelString(Nodo<String> raiz, int nivel){
+		int maxlevel = 0;
+		if(maxlevel < nivel)
+			maxlevel = nivel;
+		if (((NodoDoble<String>) raiz).getPreviewNodo() != null)
+			maxlevel = maxLevelString(((NodoDoble<String>) raiz).getPreviewNodo(),((NodoDoble<String>) raiz).getPreviewNodo().getNivel());
+		
+		if (raiz.getNextNodo() != null)
+			maxlevel = maxLevelString(raiz.getNextNodo(),raiz.getNextNodo().getNivel());
+		return maxlevel;
+	}
+	
+		public int maxLevelInteger(Nodo<Integer> raiz, int nivel){
+		int maxlevel = 0;
+		if(maxlevel < nivel)
+			maxlevel = nivel;
+		if (((NodoDoble<Integer>) raiz).getPreviewNodo() != null)
+			maxlevel = maxLevelInteger(((NodoDoble<Integer>) raiz).getPreviewNodo(),((NodoDoble<Integer>) raiz).getPreviewNodo().getNivel());
+		
+		if (raiz.getNextNodo() != null)
+			maxlevel = maxLevelInteger(raiz.getNextNodo(),raiz.getNextNodo().getNivel());
+		return maxlevel;
+	}
+	
+		public int maxLevelDouble(Nodo<Double> raiz, int nivel){
+		int maxlevel = 0;
+		if(maxlevel < nivel)
+			maxlevel = nivel;
+		if (((NodoDoble<Double>) raiz).getPreviewNodo() != null)
+			maxlevel = maxLevelDouble(((NodoDoble<Double>) raiz).getPreviewNodo(),((NodoDoble<Double>) raiz).getPreviewNodo().getNivel());
+		
+		if (raiz.getNextNodo() != null)
+			maxlevel = maxLevelDouble(raiz.getNextNodo(),raiz.getNextNodo().getNivel());
+		return maxlevel;
+	}
+	
+		public int maxLevelNumeroComplejo(Nodo<NumeroComplejo> raiz, int nivel){
+		int maxlevel = 0;
+		if(maxlevel < nivel)
+			maxlevel = nivel;
+		if (((NodoDoble<NumeroComplejo>) raiz).getPreviewNodo() != null)
+			maxlevel = maxLevelNumeroComplejo(((NodoDoble<NumeroComplejo>) raiz).getPreviewNodo(),((NodoDoble<NumeroComplejo>) raiz).getPreviewNodo().getNivel());
+		
+		if (raiz.getNextNodo() != null)
+			maxlevel = maxLevelNumeroComplejo(raiz.getNextNodo(),raiz.getNextNodo().getNivel());
+		return maxlevel;
 	}
 	
 	/*public String treeComplete(Nodo<String> raiz){

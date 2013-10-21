@@ -93,7 +93,24 @@ public class TreeType extends JPanel {
 					
 					//validacion segun el tipo de dato
 					switch(estado){
-						case 0:dibujo.agregarString(String.valueOf(textField.getText()));break;
+						case 0:
+							dibujo.agregarString(String.valueOf(textField.getText()));
+						break;
+						case 1:
+							for(int i = 0 ; i < String.valueOf(textField.getText()).length() ; i++)
+								if(String.valueOf(textField.getText()).charAt(i) < '0' || textField.getText().charAt(i) > '9') 
+						break;
+						case 2:
+							boolean band = true;
+							for(int i = 0 ; i < String.valueOf(textField.getText()).length() ; i++)
+								if((String.valueOf(textField.getText()).charAt(i) < '0' || textField.getText().charAt(i) > '9'||band)&& String.valueOf(textField.getText()).charAt(i) != '.')
+									if(String.valueOf(textField.getText()).charAt(i) == '.')
+										band = false;
+						break;
+						case 3:
+							
+						
+							
 					}
 				}
 				else if (e.getSource() == buttonDelete) {
