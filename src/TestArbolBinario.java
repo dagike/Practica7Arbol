@@ -2,21 +2,6 @@ import numero.NumeroComplejo;
 import arbol.arbolBinario.ArbolBinario;
 public class TestArbolBinario{
 	public static void main(String args[]){
-		/*ArbolBinario<String> arbol;
-		//int menu;
-		arbol=new ArbolBinario<>("F");
-		arbol.insertar("b");
-		arbol.insertar("G");
-		arbol.insertar("A");
-		arbol.insertar("D");
-		arbol.insertar("C");
-		arbol.insertar("e");
-		arbol.insertar("i");
-		arbol.insertar("H");
-		arbol.insertar("J");
-		arbol.eliminar("D");
-		System.out.println("\n"+arbol.inOrder(arbol.getRaiz()));*/
-		
 		ArbolBinario<String> arbol;
 		arbol=new ArbolBinario<>("E");
 		arbol.insertar("B");

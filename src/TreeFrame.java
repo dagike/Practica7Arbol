@@ -11,14 +11,13 @@ public class TreeFrame extends JFrame {
 	public TreeFrame() {
 		super("Arbol Binario");
 	}
-
 	public void mostrarFrame() {
 		setDefaultLookAndFeelDecorated(true);
+		
 		dibujo = new TreePaint(Color.BLACK,0,1);
 		opc = new TreeType(dibujo);
 
-		JButton posOrder = new JButton("Posorder"), inOrder = new JButton(
-				"Inorder"), preOrder = new JButton("Preorder");
+		JButton posOrder = new JButton("Posorder"), inOrder = new JButton("Inorder"), preOrder = new JButton("Preorder");
 		JPanel pDerecha = new JPanel();
 		pDerecha.setLayout(new GridLayout(3, 1));
 		pDerecha.add(posOrder);
@@ -53,8 +52,6 @@ public class TreeFrame extends JFrame {
 	}
 
 	public static void main(String args[]) {
-		//int menu;
-		
 		new TreeFrame().mostrarFrame();
 		System.out.println("\n");
 	}

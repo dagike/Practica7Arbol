@@ -21,47 +21,48 @@ public class TreePaint extends JPanel {
 	private Nodo<NumeroComplejo> raizNumeroComplejo;
 	private int state;
 	
-	public void paintComponent(Graphics g/*String message, int nivel, int numero*/) {
-		System.out.println(String.valueOf(update));
-		if(update == true){
-			super.paintComponent(g);
-			Circulo circulo = new Circulo();
-			Linea linea = new Linea();
-			g.setColor(c);
-			switch(state){
-				case 1: 
-					if (((NodoDoble<String>) raizString).getPreviewNodo() != null){
-						raizString = ((NodoDoble<String>) raizString).getPreviewNodo();
-						paintComponent(g);
-					}
-					position(String.valueOf(raizString.getInfo()), raizString.getNivel(), raizString.getNumero() );
-					circulo.setMessage(message);
-					circulo.dibujar(g, x, y);
-					linea.dibujar(g, x, y);
-					if (raizString.getNextNodo() != null){
-						paintComponent(g);
-						raizString = raizString.getNextNodo();
-					}
-					break;
-				case 2:{
-					if (((NodoDoble<Integer>) raizInteger).getPreviewNodo() != null){
-						raizInteger = ((NodoDoble<Integer>) raizInteger).getPreviewNodo();
-						paintComponent(g);
-					}
-					position(String.valueOf(raizInteger.getInfo()), raizInteger.getNivel(), raizInteger.getNumero() );
-					circulo.setMessage(message);
-					circulo.dibujar(g, x, y);
-					linea.dibujar(g, x, y);
-					if (raizString.getNextNodo() != null){
-						paintComponent(g);
-						raizString = raizString.getNextNodo();
-					}
-					break;
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		g.setColor(c);
+		switch(state){
+			case 1: 
+				//metodo para calcular el numero de nodos
+				// recorrido(nodoRaiz,g)
+				// ya dentro de ese metodo recorrido vas creando los circulos y lineas
+				//
+				
+				Circulo circulo = new Circulo();
+				Linea linea = new Linea();
+				if (((NodoDoble<String>) raizString).getPreviewNodo() != null){
+					raizString = ((NodoDoble<String>) raizString).getPreviewNodo();
 				}
-				default:break;
-			}
-			//super.paintComponent(g);
-		}
+				position(String.valueOf(raizString.getInfo()), raizString.getNivel(), raizString.getNumero() );
+				circulo.setMessage(message);
+				circulo.dibujar(g, x, y);
+				linea.dibujar(g, x, y);
+				if (raizString.getNextNodo() != null){
+					paintComponent(g);
+					raizString = raizString.getNextNodo();
+				}
+			break;
+			case 2:
+				
+				Circulo circulo = new Circulo();
+				Linea linea = new Linea();
+				if (((NodoDoble<Integer>) raizInteger).getPreviewNodo() != null){
+					raizInteger = ((NodoDoble<Integer>) raizInteger).getPreviewNodo();
+				}
+				position(String.valueOf(raizInteger.getInfo()), raizInteger.getNivel(), raizInteger.getNumero() );
+				circulo.setMessage(message);
+				circulo.dibujar(g, x, y);
+				linea.dibujar(g, x, y);
+				if (raizString.getNextNodo() != null){
+					paintComponent(g);
+					raizString = raizString.getNextNodo();
+				}
+			break;
+		}	
 		/*position(1, 1);
 		circulo.setMessage("B");
 		circulo.dibujar(g, x, y);
@@ -92,7 +93,7 @@ public class TreePaint extends JPanel {
 		setBackground(Color.WHITE);
 		this.c = c;
 		update = false;
-		state = 0;
+		state = 1;
 	}
 
 	public void position(String message, int nivel, int numero) {
