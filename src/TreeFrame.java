@@ -7,6 +7,7 @@ import arbol.arbolBinario.ArbolBinario;
 public class TreeFrame extends JFrame {
 	private TreePaint dibujo;
 	private TreeType opc;
+	private JScrollPane scroll;
 
 	public TreeFrame() {
 		super("Arbol Binario");
@@ -16,6 +17,9 @@ public class TreeFrame extends JFrame {
 		
 		dibujo = new TreePaint();
 		opc = new TreeType(dibujo);
+		dibujo.setPreferredSize(new Dimension(1000,1000));
+		dibujo.revalidate();
+		scroll= new JScrollPane(dibujo);
 
 		JButton posOrder = new JButton("Posorder"), inOrder = new JButton("Inorder"), preOrder = new JButton("Preorder");
 		JPanel pDerecha = new JPanel();
@@ -43,8 +47,8 @@ public class TreeFrame extends JFrame {
 		});
 		add(BorderLayout.NORTH, opc);
 		add(BorderLayout.EAST, pDerecha);
-		add(BorderLayout.CENTER, dibujo);
-		setSize(800, 600);
+		add(BorderLayout.CENTER, scroll);
+		setSize(900, 600);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);

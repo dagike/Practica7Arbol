@@ -13,7 +13,6 @@ import geometria.*;
 public class TreePaint extends JPanel {
 	private Color c;
 	private int x, y;
-	private String message = "";
 	private ArbolBinario<String> arbolString;
 	private ArbolBinario<Integer> arbolInteger;
 	private ArbolBinario<Double> arbolDouble;
@@ -26,34 +25,32 @@ public class TreePaint extends JPanel {
 		switch(state){
 			case 0: 
 				if(arbolString!=null){
-					System.out.println(maxLevelString(arbolString.getRaiz(),arbolString.getRaiz().getNivel()));
-					x=300;
+					x=500;
 					y=0;
-					recorridoString(arbolString.getRaiz(),g,x,y);
+					recorridoString(arbolString.getRaiz(),g,x,y,0);
 				}
 			break;
 			case 1:
 				if(arbolInteger!=null){
-					System.out.println(maxLevelInteger(arbolInteger.getRaiz(),arbolInteger.getRaiz().getNivel()));
-					x=300;
+					x=500;
 					y=0;
-					recorridoInteger(arbolInteger.getRaiz(),g,x,y);
+					recorridoInteger(arbolInteger.getRaiz(),g,x,y,0);
 				}
 			break;
 			case 2:
 				if(arbolDouble!=null){
-					System.out.println(maxLevelDouble(arbolDouble.getRaiz(),arbolDouble.getRaiz().getNivel()));
-					x=300;
+					x=500;
 					y=0;
-					recorridoDouble(arbolDouble.getRaiz(),g,x,y);
+					recorridoDouble(arbolDouble.getRaiz(),g,x,y,0);
 				}
+			break;
 			case 3:
 				if(arbolNumeroComplejo!=null){
-					System.out.println(maxLevelNumeroComplejo(arbolNumeroComplejo.getRaiz(),arbolNumeroComplejo.getRaiz().getNivel()));
-					x=300;
+					x=500;
 					y=0;
-					recorridoNumeroComplejo(arbolNumeroComplejo.getRaiz(),g,x,y);
+					recorridoNumeroComplejo(arbolNumeroComplejo.getRaiz(),g,x,y,0);
 				}
+			break;
 		}	
 	}
 	public TreePaint(){
@@ -66,7 +63,6 @@ public class TreePaint extends JPanel {
 		for (int lvl = 0; lvl < nivel; lvl++) {
 			numeroTotal *= 2;
 		}
-		this.message = message;
 		this.y = nivel * 75;
 		this.x = (700/(numeroTotal+1))*numero-1 - 25;
 	}
@@ -149,118 +145,164 @@ public class TreePaint extends JPanel {
 		repaint();
 	}
 	
-	
-	
-	public void recorridoString(Nodo<String> raiz,Graphics g,int x,int y){
-		int x1,y1;
+	public void recorridoString(Nodo<String> raiz,Graphics g,int x,int y,int vez){
+		int x1,y1,vez1;
 		Circulo circulo = new Circulo();
-		circulo.setTamanio(50);
+		circulo.setAlto(50);
+		circulo.setAncho(100);
 		circulo.setFontSize(12);
 		circulo.setMessage(raiz.getInfo());
+		g.setColor(new Color(90,172,53));
 		circulo.dibujar(g,x,y);
 		if (raiz.getNextNodo() != null){
 			Linea linea = new Linea();
 			linea.setCual(linea.RIGHT);
+			linea.setX(175-((int)(175*.30*vez)),50);
+			linea.setY(25,50);
+			g.setColor(new Color(188,143,143));
 			linea.dibujar(g,x,y);
 			x1=x;
 			y1=y;
-			x1+=125;
+			x1+=(175-((int)(175*.30*vez)));
 			y1+=75;
-			recorridoString(raiz.getNextNodo(),g,x1,y1);
+			vez1=vez;
+			vez1++;
+			recorridoString(raiz.getNextNodo(),g,x1,y1,vez1);
 		}
 		if (((NodoDoble)raiz).getPreviewNodo() != null){
 			Linea linea = new Linea();
 			linea.setCual(linea.LEFT);
+			linea.setX(175-((int)(175*(.30*vez))),50);
+			linea.setY(25,50);
+			g.setColor(new Color(188,143,143));
 			linea.dibujar(g,x,y);
 			x1=x;
 			y1=y;
-			x1-=125;
+			x1-=(175-((int)(175*.30*vez)));
 			y1+=75;
-			recorridoString(((NodoDoble<String>)raiz).getPreviewNodo(),g,x1,y1);
+			vez1=vez;
+			vez1++;
+			recorridoString(((NodoDoble<String>)raiz).getPreviewNodo(),g,x1,y1,vez1);
 		}
 	}
-	public void recorridoInteger(Nodo<Integer> raiz,Graphics g,int x,int y){
-		int x1,y1;
+	public void recorridoInteger(Nodo<Integer> raiz,Graphics g,int x,int y,int vez){
+		int x1,y1,vez1;
 		Circulo circulo = new Circulo();
-		circulo.setTamanio(50);
+		circulo.setAlto(50);
+		circulo.setAncho(100);
 		circulo.setFontSize(12);
 		circulo.setMessage(String.valueOf(raiz.getInfo()));
+		g.setColor(new Color(90,172,53));
 		circulo.dibujar(g,x,y);
 		if (raiz.getNextNodo() != null){
 			Linea linea = new Linea();
 			linea.setCual(linea.RIGHT);
+			linea.setX(175-((int)(175*.30*vez)),50);
+			linea.setY(25,50);
+			g.setColor(new Color(188,143,143));
 			linea.dibujar(g,x,y);
 			x1=x;
 			y1=y;
-			x1+=125;
+			x1+=(175-((int)(175*.30*vez)));
 			y1+=75;
-			recorridoInteger(raiz.getNextNodo(),g,x1,y1);
+			vez1=vez;
+			vez1++;
+			recorridoInteger(raiz.getNextNodo(),g,x1,y1,vez1);
 		}
 		if (((NodoDoble)raiz).getPreviewNodo() != null){
 			Linea linea = new Linea();
 			linea.setCual(linea.LEFT);
+			linea.setX(175-((int)(175*.30*vez)),50);
+			linea.setY(25,50);
+			g.setColor(new Color(188,143,143));
 			linea.dibujar(g,x,y);
 			x1=x;
 			y1=y;
-			x1-=125;
+			x1-=(175-((int)(175*.30*vez)));
 			y1+=75;
-			recorridoInteger(((NodoDoble<Integer>)raiz).getPreviewNodo(),g,x1,y1);
+			vez1=vez;
+			vez1++;
+			recorridoInteger(((NodoDoble<Integer>)raiz).getPreviewNodo(),g,x1,y1,vez1);
 		}
 	}
-	public void recorridoDouble(Nodo<Double> raiz,Graphics g,int x,int y){
-		int x1,y1;
+	public void recorridoDouble(Nodo<Double> raiz,Graphics g,int x,int y,int vez){
+		int x1,y1,vez1;
 		Circulo circulo = new Circulo();
-		circulo.setTamanio(50);
+		circulo.setAlto(50);
+		circulo.setAncho(100);
 		circulo.setFontSize(12);
 		circulo.setMessage(String.valueOf(raiz.getInfo()));
+		g.setColor(new Color(90,172,53));
 		circulo.dibujar(g,x,y);
 		if (raiz.getNextNodo() != null){
 			Linea linea = new Linea();
 			linea.setCual(linea.RIGHT);
+			linea.setX(175-((int)(175*.30*vez)),50);
+			linea.setY(25,50);
+			g.setColor(new Color(188,143,143));
 			linea.dibujar(g,x,y);
 			x1=x;
 			y1=y;
-			x1+=125;
+			x1+=(175-((int)(175*.30*vez)));
 			y1+=75;
-			recorridoDouble(raiz.getNextNodo(),g,x1,y1);
+			vez1=vez;
+			vez1++;
+			recorridoDouble(raiz.getNextNodo(),g,x1,y1,vez1);
 		}
 		if (((NodoDoble)raiz).getPreviewNodo() != null){
 			Linea linea = new Linea();
 			linea.setCual(linea.LEFT);
+			linea.setX(175-((int)(175*.30*vez)),50);
+			linea.setY(25,50);
+			g.setColor(new Color(188,143,143));
 			linea.dibujar(g,x,y);
 			x1=x;
 			y1=y;
-			x1-=125;
+			x1-=(175-((int)(175*.30*vez)));
 			y1+=75;
-			recorridoDouble(((NodoDoble<Double>)raiz).getPreviewNodo(),g,x1,y1);
+			vez1=vez;
+			vez1++;
+			recorridoDouble(((NodoDoble<Double>)raiz).getPreviewNodo(),g,x1,y1,vez1);
 		}
 	}
-	public void recorridoNumeroComplejo(Nodo<NumeroComplejo> raiz,Graphics g,int x,int y){
-		int x1,y1;
+	public void recorridoNumeroComplejo(Nodo<NumeroComplejo> raiz,Graphics g,int x,int y,int vez){
+		int x1,y1,vez1;
 		Circulo circulo = new Circulo();
-		circulo.setTamanio(50);
+		circulo.setAlto(50);
+		circulo.setAncho(100);
 		circulo.setFontSize(12);
 		circulo.setMessage(String.valueOf(raiz.getInfo()));
+		g.setColor(new Color(90,172,53));
 		circulo.dibujar(g,x,y);
 		if (raiz.getNextNodo() != null){
 			Linea linea = new Linea();
 			linea.setCual(linea.RIGHT);
+			linea.setX(175-((int)(175*.30*vez)),50);
+			linea.setY(25,50);
+			g.setColor(new Color(188,143,143));
 			linea.dibujar(g,x,y);
 			x1=x;
 			y1=y;
-			x1+=125;
+			x1+=(175-((int)(175*.30*vez)));
 			y1+=75;
-			recorridoNumeroComplejo(raiz.getNextNodo(),g,x1,y1);
+			vez1=vez;
+			vez1++;
+			recorridoNumeroComplejo(raiz.getNextNodo(),g,x1,y1,vez1);
 		}
 		if (((NodoDoble)raiz).getPreviewNodo() != null){
 			Linea linea = new Linea();
 			linea.setCual(linea.LEFT);
+			linea.setX(175-((int)(175*.30*vez)),50);
+			linea.setY(25,50);
+			g.setColor(new Color(188,143,143));
 			linea.dibujar(g,x,y);
 			x1=x;
 			y1=y;
-			x1-=125;
+			x1-=(175-((int)(175*.30*vez)));
 			y1+=75;
-			recorridoNumeroComplejo(((NodoDoble<NumeroComplejo>)raiz).getPreviewNodo(),g,x1,y1);
+			vez1=vez;
+			vez1++;
+			recorridoNumeroComplejo(((NodoDoble<NumeroComplejo>)raiz).getPreviewNodo(),g,x1,y1,vez1);
 		}
 	}
 	
